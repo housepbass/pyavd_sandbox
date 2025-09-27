@@ -26,20 +26,17 @@ ansible:
 		echo "⚠️  No collections.yml found."; \
 	fi
 
-deploy_clab:
-	containerlab deploy -t clab_topologies/l2ls.clab.yaml
+deploy_clab: # Deploy clab nodes
+	sudo containerlab deploy -t clab_topologies/l2ls.clab.yaml
 
-redeploy_clab:
-	containerlab deploy -t clab_topologies/l2ls.clab.yaml --reconfigure
+redeploy_clab: # Re-deploy clab nodes from scratch
+	sudo containerlab deploy -t clab_topologies/l2ls.clab.yaml --reconfigure
 
-destroy_clab:
-	containerlab destroy -t clab_topologies/l2ls.clab.yaml
+destroy_clab: # Destroy/cleanup clab nodes
+	sudo containerlab destroy -t clab_topologies/l2ls.clab.yaml
 
 build_avd: # Generate intended cfgs and docs
-	ansible-playbook build.yml
+	ansible-playbook ./l2ls-fabric/build.yml -i ./l2ls-fabric/inventory.yml
 
-deploy_avd_dryrun: # Do the build steps then execute a dry run intended config deployment to all nodes
-	ansible-playbook deploy.yml --check --diff
-
-deploy_avd: # Do the build steps then deploy intended configs to all nodes
-	ansible-playbook deploy.yml --diff
+deploy_avd: # Do the build steps and deploy intended configs to all nodes. Must run twice due to mgmt VRF changes.
+	ansible-playbook ./l2ls-fabric/deploy.yml -i ./l2ls-fabric/inventory.yml
