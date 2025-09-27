@@ -40,3 +40,6 @@ build_avd: # Generate intended cfgs and docs
 
 deploy_avd: # Do the build steps and deploy intended configs to all nodes. Must run twice due to mgmt VRF changes.
 	ansible-playbook ./l2ls-fabric/deploy.yml -i ./l2ls-fabric/inventory.yml
+
+install_avd_examples: # Install examples from https://avd.arista.com/5.7/index.html
+	ansible-playbook arista.avd.install_examples
