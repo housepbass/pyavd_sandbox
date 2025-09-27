@@ -1,0 +1,42 @@
+name: l2lS
+
+mgmt:
+  network: l2lS-mgmt
+  ipv4-subnet: 172.20.20.0/24
+
+topology:
+  nodes:
+    spine1:
+      kind: ceos
+      image: ceos:4.34.2F
+      mgmt-ipv4: 172.20.20.101
+    spine2:
+      kind: ceos
+      image: ceos:4.34.2F
+      mgmt-ipv4: 172.20.20.102
+    leaf1:
+      kind: ceos
+      image: ceos:4.34.2F
+      mgmt-ipv4: 172.20.20.111
+    leaf2:
+      kind: ceos
+      image: ceos:4.34.2F
+      mgmt-ipv4: 172.20.20.112
+    leaf3:
+      kind: ceos
+      image: ceos:4.34.2F
+      mgmt-ipv4: 172.20.20.113
+  links:
+    # Uplinks
+    - endpoints: ["spine1:eth1", "leaf1:eth1"]
+    - endpoints: ["spine2:eth1", "leaf1:eth2"]
+    - endpoints: ["spine1:eth2", "leaf2:eth1"]
+    - endpoints: ["spine2:eth2", "leaf2:eth2"]
+    - endpoints: ["spine1:eth3", "leaf3:eth1"]
+    - endpoints: ["spine2:eth3", "leaf3:eth2"]
+    # Leaf pair MLAG
+    - endpoints: ["leaf1:eth3", "leaf2:eth3"]
+    - endpoints: ["leaf1:eth4", "leaf2:eth4"]
+    # Spine MLAG
+    - endpoints: ["spine1:eth4", "spine2:eth4"]
+    - endpoints: ["spine1:eth5", "spine2:eth5"]

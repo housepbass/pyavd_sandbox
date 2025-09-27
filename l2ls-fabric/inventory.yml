@@ -1,0 +1,22 @@
+# inventory.yml
+FABRIC:
+  children:
+    DC1:
+      children:
+        DC1_SPINES:
+          hosts:
+            clab-l2lS-spine1:
+            clab-l2lS-spine2:
+        DC1_LEAFS:
+          hosts:
+            clab-l2lS-leaf1:
+            clab-l2lS-leaf2:
+            clab-l2lS-leaf3:
+    DC1_NETWORK_SERVICES:
+      children:
+        DC1_LEAFS:
+        DC1_SPINES:
+    DC1_ENDPOINTS:
+      children:
+        DC1_LEAFS:
+        DC1_SPINES:
