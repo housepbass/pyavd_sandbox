@@ -1,3 +1,12 @@
+# AVD
+l2ls-fabric/config_backup/*
+l2ls-fabric/documentation/*
+l2ls-fabric/intended/*
+
+# Containerlab
+clab-l2lS/
+clab_topologies/*.bak
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
